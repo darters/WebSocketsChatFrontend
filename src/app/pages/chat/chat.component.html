@@ -25,8 +25,8 @@
       <input (input)="searchChat()" [(ngModel)]="searchChatText" class="search-block" placeholder="Username">
 
       <div class="chat-container">
-        <div class="chat" *ngFor="let room of filteredRooms">
-          <div class="chat-icon" (click)="openChat(room)">
+        <div class="chat" (click)="openChat(room)" *ngFor="let room of filteredRooms">
+          <div class="chat-icon" >
 
             <div class="chat-info">
               <h4>{{room.anotherUsername || 'UNKOWN USER' | textPipe: 8}}</h4>
