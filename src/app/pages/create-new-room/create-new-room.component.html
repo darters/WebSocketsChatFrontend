@@ -1,0 +1,16 @@
+<div class="main">
+  <h1>Who do you want to write to?</h1>
+  <div class="users-container">
+    <div class="user" *ngFor="let user of users">
+      <img src="./assets/img/user-icon.svg"/>
+      <span>{{user.username | textPipe: 8}}</span>
+      <button (click)="openChat(user)">OPEN CHAT</button>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+

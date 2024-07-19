@@ -1,0 +1,25 @@
+<div class="main-block">
+  <div [formGroup]="registerForm" (ngSubmit)="submitForm()" class="form-block">
+    <h2>REGISTRATION</h2>
+    <div class="fields-block">
+      <span>Username</span>
+      <div class="field-block">
+        <input (keyup.enter)="submitForm()" placeholder="username" formControlName="username">
+        <div *ngIf="registerForm?.get('username').errors?.minlength && registerForm.get('username').touched" class="error">
+          Username must be more than 5 letters
+        </div>
+      </div>
+      <span>Password</span>
+      <div class="field-block">
+        <input type="password" #passwordInput (keyup.enter)="submitForm()" placeholder="Password" formControlName="password">
+        <img alt="eye" src="{{passwordEye}}" (click)="togglePassword(passwordInput)" class="hide-btn">
+        <div *ngIf="registerForm.get('password').errors?.minlength && registerForm.get('password').touched" class="error">
+          Password must be more than 6 letters
+        </div>
+      </div>
+
+    </div>
+    <button (click)="submitForm()" type="submit">REGISTRATION</button>
+    <a href="http://localhost:4200/login">LOGIN</a>
+  </div>
+</div>

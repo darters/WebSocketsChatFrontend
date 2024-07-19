@@ -1,0 +1,28 @@
+<div class="main-block">
+  <div [formGroup]="loginForm" (ngSubmit)="submitForm()" class="form-block">
+    <h2>LOGIN</h2>
+    <div class="fields-block">
+      <span>username</span>
+      <div class="field-block">
+        <input (keyup.enter)="submitForm()" placeholder="username" formControlName="username">
+        <div *ngIf="loginForm?.get('username').errors?.minlength && loginForm.get('username').touched" class="error">
+          Username must be more than 5 letters
+        </div>
+      </div>
+      <span>Password</span>
+      <div class="field-block">
+        <input type="password" #passwordInput (keyup.enter)="submitForm()" placeholder="Password" formControlName="password">
+        <img alt="eye" src="{{passwordEye}}" (click)="togglePassword(passwordInput)" class="hide-btn">
+        <div *ngIf="loginForm.get('password').errors?.minlength && loginForm.get('password').touched" class="error">
+          Password must be more than 6 letters
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error error-message">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <button (click)="submitForm()" type="submit">LOGIN</button>
+    <a href="http://localhost:4200/registration">REGISTRATION</a>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<link rel="stylesheet" href="chat.component.scss">
+<header>
+  <div class="auth-control">
+    <span onclick="window.location.href='/login'">Login</span>
+    <span onclick="window.location.href='/registration'">Registration</span>
+    <span onclick="window.location.href='/chat'">Chat</span>
+  </div>
+  <div class="user-profile">
+    <img src="./assets/img/user-icon.svg"/>
+    <span>{{username}}</span>
+
+    <div class="status-dropdown">
+      <select [(ngModel)]="selectedStatus" (ngModelChange)="onChangeStatus($event)">
+        <option value="Online">Online</option>
+        <option value="Offline">Offline</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+  <div class="left-side">
+
+    <div class="chat-block">
+      <input (input)="searchChat()" [(ngModel)]="searchChatText" class="search-block" placeholder="Username">
+
+      <div class="chat-container">
+        <div class="chat" *ngFor="let room of filteredRooms">
+          <div class="chat-icon" (click)="openChat(room)">
+
+            <div class="chat-info">
+              <h4>{{room.anotherUsername || 'UNKOWN USER' | textPipe: 8}}</h4>
+            </div>
+
+          </div>
+        </div>
+        <button (click)="createRoom()" class="add-room-btn">+</button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="right-side">
+    <div *ngIf="!chat" class="open-chat-text">
+      <span>Select a chat to start messaging</span>
+    </div>
+
+    <div *ngIf="chat" class="chat-main-block">
+      <header>
+        <div class="header-main">
+          <div class="user-info">
+            <h4>{{anotherUsername}}</h4>
+            <span>{{anotherUserStatus}}</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="chat">
+        <div class="messages-block" #scrollMe>
+
+          <div class="another-message message" *ngFor="let message of messages"
+                                       [ngClass]="{'own-message': message.senderId === this.currentUserId, 'message': true}">
+            <div class="content-block">
+              <span class="text">{{message.content}}</span>
+              <div class="details-block">
+                <p class="time">{{message.timestamp}}</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="new-message">
+          <input (keyup.enter)="sendRoomMessage()" [(ngModel)]="message" placeholder="Input text message">
+          <button class="send-btn" (click)="sendRoomMessage()"><img src="/assets/img/sendIcon.png"></button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
