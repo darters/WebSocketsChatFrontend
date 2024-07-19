@@ -31,17 +31,20 @@ export class LoginComponent implements OnInit {
         username: this.loginForm.get('username').value,
         password: this.loginForm.get('password').value
       }
-      this.authService.login(user).subscribe((response: any) => {
-        sessionStorage.removeItem("token")
-        sessionStorage.setItem("token", JSON.parse(response).token)
-        this.router.navigate([''])
-      }, (error) => {
-        if(error.status === 401) {
-          this.errorMessage = "Incorrect password or username"
-        } else {
-          console.log(error)
-        }
-      });
+      if (user.username.trim().length >= 5 && user.password.trim().length >= 6) {
+        this.authService.login(user).subscribe((response: any) => {
+          sessionStorage.removeItem("token")
+          sessionStorage.setItem("token", JSON.parse(response).token)
+          this.router.navigate([''])
+        }, (error) => {
+          if(error.status === 401) {
+            this.errorMessage = "Incorrect password or username"
+          } else {
+            console.log(error)
+          }
+        });
+      }
+
     } else {
       console.log("Something was wrong")
     }

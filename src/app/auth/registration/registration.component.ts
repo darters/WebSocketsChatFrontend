@@ -40,9 +40,11 @@ export class RegistrationComponent implements OnInit {
         username: this.registerForm.get('username').value,
         password: this.registerForm.get('password').value
       }
-      this.authService.registration(user)
-        .subscribe((result) => console.log(result));
+      if (user.username.trim().length >= 5 && user.password.trim().length >= 6) {
+        this.authService.registration(user)
+          .subscribe((result) => console.log(result));
         this.router.navigate(['/login'])
+      }
     } else {
       console.log("Something was wrong");
     }
