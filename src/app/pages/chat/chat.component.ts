@@ -41,7 +41,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   username: string = '';
   anotherUsername: string = '';
   currentUserId: string = '';
-  anotherUserStatus: string = 'Online';
+  anotherUserStatus: string = 'Offline';
   private room: any;
   private stompClient: any;
   private currentSubscription: any;
