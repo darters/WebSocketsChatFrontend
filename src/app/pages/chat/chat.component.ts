@@ -157,9 +157,11 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
     if (room.user1Name === currentUser) {
       this.anotherUsername = room.user2Name;
+      this.getUserStatus(room.user2Id)
       this.subscribeToUserStatusUpdates(room.user2Id);
     } else {
       this.anotherUsername = room.user1Name;
+      this.getUserStatus(room.user1Id)
       this.subscribeToUserStatusUpdates(room.user1Id);
     }
     this.messages = [];
@@ -172,7 +174,11 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       this.messages.push(JSON.parse(messages.body));
     });
   }
-
+  public getUserStatus(userId: string) {
+    this.userService.getUserStatus(userId).subscribe((status: any) => {
+      this.anotherUserStatus = status
+    })
+  }
   public subscribeToUserStatusUpdates(userId: string) {
     this.userStatusSubscription = this.stompClient.subscribe("/topic/userStatus/" + userId, (message: any) => {
       const statusUpdate = JSON.parse(message.body);

@@ -20,7 +20,9 @@ export class UserService {
   public getAllUsers(): Observable<any> {
     return this.httpClient.get<any[]>(this.userUrl + 'getAll')
   }
-
+  public getUserStatus(userId: string) {
+    return this.httpClient.get(this.userUrl + "getStatus/" + userId)
+  }
   private createAuthRequest(user: User, operation: string): Observable<any> {
     const userJson = JSON.stringify(user);
     const headers = new HttpHeaders({
